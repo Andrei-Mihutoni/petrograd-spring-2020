@@ -129,16 +129,15 @@ cite:before {
 .course img {
   box-shadow: 1px 1px 1px 1px var(--color-grey-dark);
 }
+
 .course .soldout {
-  display: none;
-}
-.course.soldout .soldout {
+    display: none;
   position: absolute;
   top: 50%;
   width: 100%;
   text-align: center;
   color: var(--color-grey-lightest);
-  display: block;
+
   background-color: var(--color-pink-light);
   transform: rotate(-45deg);
 }
