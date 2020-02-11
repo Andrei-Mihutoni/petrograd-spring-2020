@@ -1,12 +1,48 @@
-//fetching json
+// <section id="starters">
+//                <h2>Starters</h2>
+//
 
-fetch("https://kea-alt-del.dk/t5/api/productlist")
-    .then(function (response) {
-        return response.json();
+//4. assign products to correct section
+
+
+//1. fetch cats
+fetch("https://kea-alt-del.dk/t5/api/categories")
+    .then(res => res.json())
+    .then(createCategories)
+
+function createCategories(data) {
+    //console.log(data)
+    data.forEach(function (oneCat) {
+
+        const section = document.createElement("section");
+
+        //3. assign id
+        section.id=oneCat;
+        const h2 = document.createElement("h2");
+        h2.textContent = oneCat;
+        section.appendChild(h2);
+
+        document.querySelector("main").appendChild(section);
+
+
     })
-    .then(function (data) {
-        showData(data)
-    })
+    getProducts();
+}
+
+
+function getProducts() {
+    //fetching json
+    fetch("https://kea-alt-del.dk/t5/api/productlist")
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            showData(data)
+        })
+
+}
+
+
 
 function showData(jsonData) {
     console.log(jsonData);
@@ -18,11 +54,8 @@ function showData(jsonData) {
 
 
 function addCourses(course) {
-//    console.log(course)
+    //    console.log(course)
 
-    const sections = [];
-    sections[0] = document.querySelector("#starters");
-    sections[1] = document.querySelector("#drinks");
 
     //    1 grab the template
     const template = document.querySelector("#courseTemplate").content;
@@ -37,7 +70,7 @@ function addCourses(course) {
     //    change the soldout
     if (course.soldout == true) {
         courseClone.querySelector(".soldout").style.display = "block"
-//        console.log('soldout')
+        //        console.log('soldout')
     }
 
     //    change the info content
@@ -45,10 +78,8 @@ function addCourses(course) {
 
 
     //    change the price & discount
-
-
-    if (course.discount) {//on sale
-       courseClone.querySelector(".price-discount span").textContent = course.price;
+    if (course.discount) { //on sale
+        courseClone.querySelector(".price-discount span").textContent = course.price;
         const newPrice = Math.round(course.price - course.price * course.discount / 100);
 
         courseClone.querySelector(".price-full span").textContent = newPrice;
@@ -74,9 +105,12 @@ function addCourses(course) {
 
 
     //    4 append the clone
-    sections[0].appendChild(courseClone);
+    document.querySelector(`#${course.category}`).appendChild(courseClone)
 }
 
+
+//const whoIsYourDaddy = document.querySelector("#starters")
+//whoIsYourDaddy.appendChild(courseClone)
 
 
 //2 loop through the jsonData
