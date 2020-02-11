@@ -1,6 +1,9 @@
-// <section id="starters">
-//                <h2>Starters</h2>
-//
+//1. create:
+//<a href="main">Sterters</a>
+
+//2. assign link to correct nav
+
+
 
 //4. assign products to correct section
 
@@ -10,14 +13,22 @@ fetch("https://kea-alt-del.dk/t5/api/categories")
     .then(res => res.json())
     .then(createCategories)
 
+
 function createCategories(data) {
-    //console.log(data)
+
+
     data.forEach(function (oneCat) {
 
-        const section = document.createElement("section");
+        //create links
+        const link = document.createElement("a");
+        link.setAttribute("href", `#${oneCat}`);
+        link.textContent = oneCat
+        document.querySelector("#wrapper>header>nav").appendChild(link)
 
+        //create sections
+        const section = document.createElement("section");
         //3. assign id
-        section.id=oneCat;
+        section.id = oneCat;
         const h2 = document.createElement("h2");
         h2.textContent = oneCat;
         section.appendChild(h2);

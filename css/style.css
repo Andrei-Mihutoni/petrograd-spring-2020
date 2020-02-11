@@ -6,6 +6,11 @@
 * {
   box-sizing: border-box;
 }
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: var(--color-grey-lighter);
   margin: 0;
